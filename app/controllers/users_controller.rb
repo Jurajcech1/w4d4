@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :logged_in?, only: [:show, :index]
   def index
     @users = User.all
     render :index
