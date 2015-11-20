@@ -13,6 +13,7 @@ before_action :logged_in?
 
   def create
     @band = Band.new(band_params)
+
     if @band.save
       redirect_to band_url(@band)
     else
@@ -26,17 +27,27 @@ before_action :logged_in?
   end
 
   def edit
+    @band = Band.find_by_id(params[:id])
     render :edit
   end
 
   def update
+    @band = Band.find_by_id(params[:id])
+
+    if @band.update(band_params)
+      redirect_to band_url(@band)
+    else
+      render :edit
+    end
   end
 
   def destroy
     @band = Band.find_by_id(params[:id])
+    @band.delete
+    redirect_to bands_url
   end
 
   def band_params
-    self.params[:band].require[:name]
+    self.params.require(:band).permit(:name)
   end
 end

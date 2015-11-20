@@ -1,3 +1,16 @@
 <h1> <%= @band.name %> </h1>
 
 <p>Welcome!</p>
+
+<%= link_to "Edit Your Band!", edit_band_url %>
+<%= link_to "Back to Bands!", bands_url %>
+
+<form action="<%= band_url(@band) %>" method="POST">
+  <input type="hidden" name="_method" value="DELETE">
+  <input
+    type="hidden"
+    name="authenticity_token"
+    value="<%= form_authenticity_token %>">
+
+  <input type="submit" value="Delete your band!">
+</form>
